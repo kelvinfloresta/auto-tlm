@@ -18,23 +18,21 @@ def click_selector(selector):
 def wait_for_selector(selector):
     print('Waiting for selector "{}"'.format(selector))
     element = pyautogui.locateOnScreen(selector)
-    not_found = element == None
-    if (not_found):
+    while element is None:
         print('Selector "{}" NOT found!'.format(selector))
         time.sleep(1)
-        return wait_for_selector(selector)
+        element = pyautogui.locateOnScreen(selector)
 
     print('Found selector "{}"'.format(selector))
     return element
 
 def retry_click(selector, delayInSeconds):
     success = click_selector(selector)
-    if (success):
-        return
+    while success is False:
+        print('Retrying in "{}" seconds'.format(delayInSeconds))
+        time.sleep(delayInSeconds)
+        success = click_selector(selector)
 
-    print('Retrying in "{}" seconds'.format(delayInSeconds))
-    time.sleep(delayInSeconds)
-    return retry_click(selector, delayInSeconds)
 
 def check_mine_exhaust():
     print("Checking mine exhaust")

@@ -49,8 +49,10 @@ def mine():
 def claim():
     print("Claiming!")
     retry_click(selector.get("claim"), 1)
+    time.sleep(5)
     retry_click(selector.get("transaction_request"), 1)
-    pyautogui.scroll(-10000)
+    pyautogui.scroll(-1000)
+    time.sleep(5)
     retry_click(selector.get("approve_transaction"), 1)
     retry_click(selector.get("home"), 1)
 
